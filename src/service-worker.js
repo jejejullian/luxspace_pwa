@@ -61,15 +61,33 @@ registerRoute(
   })
 );
 
-registerRoute(({url}) => url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com', new NetworkFirst({
-  cacheName: 'Focus',
-  plugins: [
-    new ExpirationPlugin({
-      maxAgeSeconds: 60 * 60 * 24 * 356,
-      maxEntries: 30
-    })
-  ]
-}))
+registerRoute(
+  ({ url }) => url.origin === "https://fonts.googleapis.com" || url.origin === "https://fonts.gstatic.com",
+  new NetworkFirst({
+    cacheName: "Fonts",
+    plugins: [
+      new ExpirationPlugin({
+        maxAgeSeconds: 60 * 60 * 24 * 356,
+        maxEntries: 30,
+      }),
+    ],
+  })
+);
+
+registerRoute(
+  ({ url }) => url.origin === "https://bwacharity.fly.dev" && url.pathname === "/items",
+  new NetworkFirst({
+    cacheName: "apidata",
+    plugins: [
+      new ExpirationPlugin({
+        maxAgeSeconds: 360,
+        maxEntries: 30,
+      }),
+    ],
+  })
+);
+
+
 
 self.addEventListener("install", function (event) {
   console.log("SW install");
