@@ -87,8 +87,6 @@ registerRoute(
   })
 );
 
-
-
 self.addEventListener("install", function (event) {
   console.log("SW install");
 
@@ -105,6 +103,14 @@ self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
+});
+self.addEventListener("push", function (event) {
+  event.waitUntil(
+    self.registration.showNotification("Luxspace", {
+      icon: "./icon-120.png",
+      body: event.data.text()
+    })
+  );
 });
 
 // Any other custom service worker logic can go here.

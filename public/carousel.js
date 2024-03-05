@@ -130,6 +130,8 @@ function initCarousel() {
     }
   }
 
+  // Panggil carousel_calc_offset setelah DOM sepenuhnya dimuat
+  document.addEventListener("DOMContentLoaded", carousel_calc_offset);
   // Event listener untuk memanggil initCarousel saat halaman dimuat
   window.addEventListener("load", carousel_calc_offset);
   // Event listener untuk memanggil initCarousel saat ukuran layar berubah
